@@ -1,0 +1,187 @@
+323CA Kullman Robert-Alexandru
+Analiza Algoritmilor (2022) - Tema 2. Reduceri Polinomiale
+
+ # Info
+ 
+	# Obiective
+	 Asocierea si modelarea unor aplicatii practice cu probleme NP.
+	 Implementarea reducerilor polinomiale la problema SAT.
+	# Definitii
+	oracol = este o entitate teoretica capabila de a rezolva o problema.
+	  	  Poate fi privit ca o "cutie magica" (black box), care poate
+	  	  produce o solutie pentru orice instanta data a unei probleme.
+	CNF = forma conjunctiv normala.
+	SAT = problema satisfiabilitatii. Este o problema NP - Completa,
+	conform Teoremei lui Cook.
+	
+# Implementare
+
+Implementarea a fost realizata in limbajul Java, cu ajutorul unor clase
+pentru fiecare problema in parte. Fiecare dintre acestea mosteneste
+clasa abstracta "Task" si suprascrie metodele acesteia.
+
+Fisiere auxiliare: 
+
+	sat.cnf - generat in timpul programului pentru a formula
+			  o cerere catre oracol
+	sat.sol - raspunsul dat de oracol ce urmeaza a fi interpretat
+
+
+	# Retele
+	
+	* campurile clasei folosite ca niste variabile globale pentru a stoca
+	  informatie
+	 
+	# Semnificatia campurilor
+	
+	Matricea y(i, j) este o matrice a clauzelor, unde fiecare clauza are
+	un numar stabilit prin initializarea matricii cu numere consecutive.
+	Fiecare linie are semnificatia (i) index-ului din clica, iar fiecare
+	coloana semnifica numarul unui nod (j).
+	
+	Matricea de adiacenta links(u, w) : 1 daca intre u, w exista muchie, 0
+	altfel.
+	
+	# Complexitate
+	Pentru prima conditie, avem k clauze si complexitate O(n)
+	
+	Pentru a doua conditie, avem (n * (n - 1) / 2 - m) noduri fara legatura
+	si k * (k - 1) pasi pentru fiecare "lipsa a muchiei". Complexitatea este
+	de O(n^3)
+	
+	Pentru a treia conditie avem k * (k - 1) * n / 2 clauze. Complexitatea
+	este O(n)
+
+
+	* **main** - creeaza o instanta a clasei si apeleaza metoda solve
+	* **solve** - citeste datele problemei, initializeaza o matrice de clauze,
+	  formuleaza intrebari pentru oracol, le descifreaza si apoi
+	  scrie in fisierul sat.sol raspunsul
+	* **readProblemData** - foloseste un BufferedReader pentru citirea datelor
+		si metoda *.split* si *.parseInt* pentru parsarea inputului si
+		initializarea variabilelor creeaza legaturi pe baza numarului de muchii
+		citite
+						  - creeaza o noua matrice de clauze
+	* **formulateOracleQuestion** - scrie in fisierul sat.cnf formula de
+	  inceput, numarul variabilelor formulei si numarul de clauze
+								  - fiecare clauza este urmata de un "0" pentru
+	  a semnifica sfarsitul acesteia si este scrisa in fisier sub forma unui
+	  string
+	* **decipherOracleAnswer** - foloseste tot un BufferedReader pentru a citi
+	  din fisierul sat.sol si interpreteaza solutia
+	  						   - in array-ul solution este adaugata fiecare
+	  numar (clauza) care este adevarata (este pozitiva in fisierul oferit de
+	  oracol ).
+	  						   - se cauta fiecare valoare din array-ul solution
+	  si se cauta in matricea clauzelor acea valoare pentru a putea interpreta
+	  rezultatul. Daca este gasita acea valoare, atunci adaugam in vectorul
+	  finalResult nodul corespunzator.
+	* **writeAnswer** - afisam rezultatul interpretat
+
+	
+	# Reclame
+	
+	* campurile clasei folosite ca niste variabile globale pentru a stoca
+	  informatie
+	  
+	# Semnificatia campurilor  
+	
+	Matricea y(i, j) este o matrice a clauzelor, unde fiecare clauza are
+	un numar stabilit prin initializarea matricii cu numere consecutive.
+	Fiecare linie are semnificatia (i) index-ului din grup, iar fiecare
+	coloana semnifica numarul unui nod (j).
+	
+	Matricea de adiacenta links(u, w) : 1 daca intre u, w exista muchie, 0
+	altfel.
+	
+	# Complexitate
+	Pentru prima conditie, avem k clauze si complexitate O(n)
+	
+	Pentru a doua conditie, n clauze si complexitate O(n). 
+	
+	Pentru a treia conditie avem m clauze. Complexitatea
+	este O(n ^2)
+	
+	Pentru a patra conditie avem k * (k - 1) * n / 2 clauze si compllexitate
+	O(n^2) 
+	
+	* **main** - creeaza o instanta a clasei si apeleaza metoda solve
+	* **solve** - citeste datele problemei si variaza dimensiunea grupului
+	cautat incepand cu 2 si initializeaza o matrice de clauze,
+	formuleaza intrebari pentru oracol, le descifreaza si apoi
+	scrie in fisierul sat.sol raspunsul in cazul care rezultatul e True.
+	In caz contrar, se incrementeaza k, dimensiunea grupului cautat
+	* **readProblemData** - foloseste un BufferedReader pentru citirea datelor
+		si metoda *.split* si *.parseInt* pentru parsarea inputului si
+		initializarea variabilelor creeaza legaturi pe baza numarului de muchii
+		citite
+	* **formulateOracleQuestion** - scrie in fisierul sat.cnf formula de
+	  inceput, numarul variabilelor formulei si numarul de clauze
+								  - fiecare clauza este urmata de un "0" pentru
+	  a semnifica sfarsitul acesteia si este scrisa in fisier sub forma unui
+	  string
+	* **decipherOracleAnswer** - foloseste tot un BufferedReader pentru a citi
+	  din fisierul sat.sol si interpreteaza solutia
+	  						   - in array-ul solution este adaugata fiecare
+	  numar (clauza) care este adevarata (este pozitiva in fisierul oferit de
+	  oracol ).
+	  						   - se cauta fiecare valoare din array-ul solution
+	  si se cauta in matricea clauzelor acea valoare pentru a putea interpreta
+	  rezultatul. Daca este gasita acea valoare, atunci adaugam in vectorul
+	  finalResult nodul corespunzator.
+	* **writeAnswer** - afisam rezultatul interpretat
+	
+
+	#  Registre
+	
+	Problema poate fi interpretata la fel ca problema colorarii unui graf
+	
+	* campurile clasei folosite ca niste variabile globale pentru a stoca
+	  informatie
+	  
+	* 	Matricea y(i, j) este o matrice a clauzelor, unde fiecare clauza are
+	un numar stabilit prin initializarea matricii cu numere consecutive.
+	Fiecare linie are semnificatia (i) nodului (variabilei), iar fiecare
+	coloana semnifica numarul culorii (registrului).
+	
+	Matricea de adiacenta links(u, w) : 1 daca intre u, w exista legatura, 0
+	altfel.
+	
+	# Complexitate
+	Pentru prima conditie, avem n clauze si complexitate O(n)
+	
+	Pentru a doua conditie, avem n * k * (k - 1) / 2 clauze. Complexitatea este
+	O(n)
+	
+	Pentru a treia conditie avem k * m clauze. Complexitatea
+	este O(n^2)
+
+	
+	* **main** - creeaza o instanta a clasei si apeleaza metoda solve
+	* **solve** - citeste datele problemei si variaza dimensiunea grupului
+	cautat incepand cu 2 si initializeaza o matrice de clauze,
+	formuleaza intrebari pentru oracol, le descifreaza si apoi
+	scrie in fisierul sat.sol raspunsul in cazul care rezultatul e True.
+	In caz contrar, se incrementeaza k, dimensiunea grupului cautat
+	* **readProblemData** - foloseste un BufferedReader pentru citirea datelor
+		si metoda *.split* si *.parseInt* pentru parsarea inputului si
+		initializarea variabilelor creeaza legaturi pe baza numarului de muchii
+		citite
+						  - creeaza o noua matrice de clauze
+	* **formulateOracleQuestion** - scrie in fisierul sat.cnf formula de
+	  inceput, numarul variabilelor formulei si numarul de clauze
+								  - fiecare clauza este urmata de un "0" pentru
+	  a semnifica sfarsitul acesteia si este scrisa in fisier sub forma unui
+	  string
+	* **decipherOracleAnswer** - foloseste tot un BufferedReader pentru a citi
+	  din fisierul sat.sol si interpreteaza solutia
+	  						   - in array-ul solution este adaugata fiecare
+	  numar (clauza) care este adevarata (este pozitiva in fisierul oferit de
+	  oracol ).
+	  						   - se cauta fiecare valoare din array-ul solution
+	  si se cauta in matricea clauzelor acea valoare pentru a putea interpreta
+	  rezultatul. Daca este gasita acea valoare, atunci adaugam in vectorul
+	  finalResult nodul corespunzator.
+	* **writeAnswer** - afisam rezultatul interpretat
+
+
